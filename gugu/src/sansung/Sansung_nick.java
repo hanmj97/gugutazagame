@@ -18,7 +18,11 @@ public class Sansung_nick extends JFrame implements ActionListener,KeyListener {
 	public String Nick; // 닉네임입력
 	private JLabel NewLabel_1; // 오류 문구
 	private Sansung_main main ;
+	//수정
+	private JButton shortTypingButton;
 	
+	private JButton NewButton;
+	//
 	public Sansung_nick() {
 		main = new Sansung_main();
 		
@@ -41,9 +45,9 @@ public class Sansung_nick extends JFrame implements ActionListener,KeyListener {
 	getContentPane().add(textField);
 	textField.setColumns(20); // 10글자 미만
 	
-	
-	JButton NewButton = new JButton("확인"); //확인버튼
-	
+	//수정
+	NewButton = new JButton("확인"); //확인버튼
+	//
 	NewButton.setFont(new Font("궁서", Font.BOLD, 22));
 	NewButton.setBounds(700, 500, 156, 66);
 	getContentPane().add(NewButton);
@@ -54,11 +58,26 @@ public class Sansung_nick extends JFrame implements ActionListener,KeyListener {
 	NewLabel_1.setFont(new Font("궁서", Font.BOLD, 19));
 	NewLabel_1.setBounds(420, 450, 300, 50);
 	getContentPane().add(NewLabel_1);
+		
+	//짧은글 수정
+
+	shortTypingButton = new JButton("짧은 글 연습");
+	shortTypingButton.setBounds(450, 576, 240, 50);
+	getContentPane().add(shortTypingButton);
+	
+	
+	//	
 	setVisible(true);
 	
 	// 닉네임 입력창 키 이벤트 (this)
 	textField.addKeyListener(this);
+		
+	//수정 
+	shortTypingButton.addActionListener(this); //짧은 글 연습 이벤트
 	
+	setResizable(false);
+	//
+		
 	}
 	
 	@Override
@@ -99,13 +118,26 @@ public class Sansung_nick extends JFrame implements ActionListener,KeyListener {
 	public void actionPerformed(ActionEvent e) {  // 버튼으로 눌렀을 때
 		// TODO Auto-generated method stub
 		
-		if(!textField.getText().equals("")){			
-			// 텍스트 이력창에 값이 있다면 닉네임 변수에 저장 후 게임화면 띄우기 
-			Nick = textField.getText().toString();  // 저장된 닉넴 값 들어감.
-			System.out.println("nick - actionPerformed : "+Nick);
-			this.dispose();
-			main.showGameView(Nick); // 이 닉네임이 메인게임의 닉넴에 출력됨
+		if(!textField.getText().equals("")){	
+			if(e.getSource() == NewButton){
+				
+				// 텍스트 이력창에 값이 있다면 닉네임 변수에 저장 후 게임화면 띄우기 
+				Nick = textField.getText().toString();  // 저장된 닉넴 값 들어감.
+				System.out.println("nick - actionPerformed : "+Nick);
+				this.dispose();
+				main.showGameView(Nick); // 이 닉네임이 메인게임의 닉넴에 출력됨
+			}
 			
+			//수정부분
+			else if(e.getSource() == shortTypingButton)//짧은글 버튼 확인
+				{
+					Nick = textField.getText().toString();  // 저장된 닉넴 값 들어감.
+					this.dispose();
+					main.showShort(Nick);// 닉을 넘겨주고 짧은 글 연습 실행
+					
+				}
+			
+			//
 			
 		}else {                             
 			// 텍스트 입력창에 값이 없다면 라벨텍스트 변경 
