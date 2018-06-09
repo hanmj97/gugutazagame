@@ -17,5 +17,12 @@ public class Sansung_main {
 		Sansung_game game = new Sansung_game(nick);// 닉네임 가지고 게임화면 띄우기 
 		
 	}
+	
+	public void showShort(Sansung_nick gui, String nick)
+	{
+		
+		shortType Type = new shortType(nick);//닉네임 가지고 짧은 글 실행
+	}
+	
 
 }
