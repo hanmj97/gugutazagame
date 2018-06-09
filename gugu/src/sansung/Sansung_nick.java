@@ -31,7 +31,7 @@ public class Sansung_nick extends JFrame implements ActionListener,KeyListener {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("산성비 게임");
 		getContentPane().setLayout(null);
-	
+	 
 	
 	JLabel NewLabel = new JLabel("구구 타자 연습"); // 닉네임
 	NewLabel.setFont(new Font("궁서",Font.PLAIN,30)); //글씨체
