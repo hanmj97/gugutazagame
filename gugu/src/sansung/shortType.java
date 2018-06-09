@@ -18,7 +18,7 @@ import java.util.Random;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import javax.swing.JTextArea;
-import java.awt.Font;
+import java.awt.Font; 
 
 
 public class shortType extends JFrame implements ActionListener,KeyListener {
