@@ -1,5 +1,4 @@
-package sansung;
-
+package DB_project;
 
 public class Sansung_main {
 
@@ -17,12 +16,22 @@ public class Sansung_main {
 		Sansung_game game = new Sansung_game(nick);// 닉네임 가지고 게임화면 띄우기 
 		
 	}
-	//짧은 글 클래스를 불러오는 메소드
-	public void showShort(String nick)
+	
+	public void showShort(Sansung_nick gui, String nick)
 	{
-		
-		shortType Type = new shortType(nick);//닉네임 가지고 짧은 글 실행
+		gui.dispose();
+		shortType Type = new shortType(nick);
 	}
 	
-
+	public void rank(Sansung_nick gui, String nick)
+	{
+		gui.dispose();
+		rank rank1 = new rank(nick);
+	}
+	
+	public void Mine_game(Sansung_nick gui, String nick)
+	{
+		gui.dispose();
+		Mine_game Mine1 = new Mine_game(nick);
+	}
 }
