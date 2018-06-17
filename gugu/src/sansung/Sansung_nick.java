@@ -1,35 +1,23 @@
-package DB_project;
-
+package sansung;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.sql.*;
 
-import com.mysql.jdbc.PreparedStatement;
-import javax.swing.*;      
-import javax.swing.event.*;     
-import java.awt.*;      
-import java.awt.event.*; 
-
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 public class Sansung_nick extends JFrame implements ActionListener,KeyListener {
+	
 	private JTextField textField; // 닉 입력창
-	Connection conn = null;
-	Statement st = null;
-	ResultSet rs = null;
-	String url = "jdbc:mysql://125.190.205.205/jsp?useSSL=false";
-	String id="root";
-	String pw="1234";
-	JFrame internalframe;
+	
 	public String Nick; // 닉네임입력
 	private JLabel NewLabel_1; // 오류 문구
 	private Sansung_main main ;
-	private JButton NewButton;
-	private JButton shortTypingButton;
-	private JButton btnNewButton;
-	private JButton btnNewButton_1;
 	
 	public Sansung_nick() {
 		main = new Sansung_main();
@@ -37,6 +25,7 @@ public class Sansung_nick extends JFrame implements ActionListener,KeyListener {
 	 //화면 
 		setSize(1280,720);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setTitle("자원캐기");
 		getContentPane().setLayout(null);
 	
 	
@@ -48,51 +37,28 @@ public class Sansung_nick extends JFrame implements ActionListener,KeyListener {
 	textField = new JTextField(); //닉네임 입력창
 	
 	textField.setFont(new Font("궁서", Font.BOLD, 24));
-	textField.setBounds(450,500, 391, 66);
+	textField.setBounds(450,500, 238, 66);
 	getContentPane().add(textField);
 	textField.setColumns(20); // 10글자 미만
 	
 	
-	NewButton = new JButton("산성비 게임"); //확인버튼
-	   
-	NewButton.setFont(new Font("굴림", Font.BOLD, 12));
-	NewButton.setBounds(226, 576, 201, 50);
+	JButton NewButton = new JButton("확인"); //확인버튼
+	
+	NewButton.setFont(new Font("궁서", Font.BOLD, 22));
+	NewButton.setBounds(700, 500, 156, 66);
 	getContentPane().add(NewButton);
 	NewButton.addActionListener(this);
-
 	
-	NewLabel_1 = new JLabel("닉네임을 입력하세요."); // 닉네임 라벨 
+	NewLabel_1 = new JLabel("닉네임"); // 닉네임 라벨 
 	NewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 	NewLabel_1.setFont(new Font("궁서", Font.BOLD, 19));
-	NewLabel_1.setBounds(450, 450, 391, 50);
+	NewLabel_1.setBounds(420, 450, 300, 50);
 	getContentPane().add(NewLabel_1);
-	
-	shortTypingButton = new JButton("짧은 글 연습");
-	shortTypingButton.setFont(new Font("굴림", Font.BOLD, 12));
-	shortTypingButton.setBounds(439, 576, 204, 50);
-	getContentPane().add(shortTypingButton);
-	
-	btnNewButton = new JButton("산성비 게임 랭킹");
-	btnNewButton.setFont(new Font("굴림", Font.BOLD, 12));
-	btnNewButton.setBounds(862, 576, 201, 50);
-	getContentPane().add(btnNewButton);
-	btnNewButton.addActionListener(this);
 	setVisible(true);
-	
-	JLabel lblNewLabel = new JLabel("");
-	lblNewLabel.setBounds(71, 92, 635, 663);
-	getContentPane().add(lblNewLabel);
-	
-	btnNewButton_1 = new JButton("광물 캐기");
-	btnNewButton_1.setFont(new Font("굴림", Font.BOLD, 12));
-	btnNewButton_1.setBounds(655, 576, 201, 50);
-	getContentPane().add(btnNewButton_1);
-	btnNewButton_1.addActionListener(this);
 	
 	// 닉네임 입력창 키 이벤트 (this)
 	textField.addKeyListener(this);
-	shortTypingButton.addActionListener(this);
-
+	
 	}
 	
 	@Override
@@ -132,81 +98,28 @@ public class Sansung_nick extends JFrame implements ActionListener,KeyListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {  // 버튼으로 눌렀을 때
 		// TODO Auto-generated method stub
-		try {
-	         Class.forName("com.mysql.jdbc.Driver");
-	         System.out.println("드라이버 연결 성공!");
-	         
-	         conn = DriverManager.getConnection(url, id, pw);
-	         System.out.println("데이터베이스 접속 성공!");
-	            
-	         
-	         st = conn.createStatement();
-	         st = conn.prepareStatement("INSERT INTO user (iduser) VALUES (?)");
-	          Nick = textField.getText(); 
-	          ((PreparedStatement) st).setString(1, Nick);
-	          if (((PreparedStatement) st).executeUpdate() > 0) 
-	          {
-	                System.out.println("정보 업데이트 성공"); // 점수는 중복이여도 괜찮지만 사용자의 아이디는 중복되지않
-	             } else {
-	                System.out.println("정보 업데이트 실패");
-	                NewLabel_1.setText("올바르지 않은 닉네임 입니다.");
-	             }
-
-	           st = conn.prepareStatement("SELECT iduser FROM user "); // 랭킹창 표현 (저장되잇던 값 표출)
-	           rs = ((PreparedStatement) st).executeQuery();
-	             
-	           
-	           while (rs.next()) 
-	           {
-	               String name = rs.getString("iduser");
-
-	               System.out.println("사용자 닉네임 : " + name);
-	            }
-	               
-	               
-	           if(!textField.getText().equals("")){
-	            
-	            // 텍스트 이력창에 값이 있다면 닉네임 변수에 저장 후 게임화면 띄우기 
-	            if(e.getSource() == NewButton) {
-	               Nick = textField.getText().toString();  // 저장된 닉넴 값 들어감.
-	               main.showGameView( Nick); // 이 닉네임이 메인게임의 닉넴에 출력됨
-	            }
-	            else if(e.getSource() == shortTypingButton)
-	               {
-	                  Nick = textField.getText().toString();  // 저장된 닉넴 값 들어감.
-	                  main.showShort(this, Nick);
-	               }
-	            else if(e.getSource() == btnNewButton)
-	            {
-	            	Nick = textField.getText().toString();
-	            	main.rank(this, Nick);
-	            	
-	            }
-	            else if(e.getSource() == btnNewButton_1)
-	            {
-	            	Nick = textField.getText().toString();
-	            	main.Mine_game(this, Nick);
-	            	
-	            }
-	         }
-	          else 
-	          {                             
-	             // 텍스트 입력창에 값이 없다면 라벨텍스트 변경 
-	             NewLabel_1.setText("올바르지 않은 닉네임 입니다."); // 올바를 때
-	          }
-	             
-	          while(rs.next())                          //하나라도 값이 들어왔으면       next() 메서드를 사용해서 SELECT 결과의 존재 여부를 확인
-	          {
-	             System.out.printf("사용자의 아이디 : " + rs.getString(1) + "\n");
-	          }
-	        } catch(Exception e1)
-	   {
-	        System.out.println(e1.getMessage());
-	   }
-	   }
+		
+		if(!textField.getText().equals("")){			
+			// 텍스트 이력창에 값이 있다면 닉네임 변수에 저장 후 게임화면 띄우기 
+			Nick = textField.getText().toString();  // 저장된 닉넴 값 들어감.
+			System.out.println("nick - actionPerformed : "+Nick);
+			this.dispose();
+			main.showGameView(Nick); // 이 닉네임이 메인게임의 닉넴에 출력됨
+			
+			
+		}else {                             
+			// 텍스트 입력창에 값이 없다면 라벨텍스트 변경 
+			NewLabel_1.setText("올바르지 않은 닉네임 입니다."); // 올바를 때
+		}
+		
+	}
+	     //Main 등록 
+//		public void setSansung_main(Sansung_main main) {		
+//			this.main = main;			
+//		}
 }
 	
-	
+
 
 
 
