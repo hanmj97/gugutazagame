@@ -53,7 +53,7 @@ public class Sansung_game extends JFrame implements ActionListener, KeyListener,
    private JLabel lblNick;
    private String NickName;
 
-   String url = "jdbc:mysql://125.190.205.205:3306/jsp";
+   String url = "jdbc:mysql://125.190.205.205:3306/jsp?useSSL=false";
    String id="root";
    String pw="1234";
    
