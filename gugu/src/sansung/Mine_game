@@ -58,7 +58,7 @@ public class Mine_game extends JFrame implements ActionListener, KeyListener, Li
    private int returned = 1;
    
    int aaa =1;
-   String url = "jdbc:mysql://125.190.205.205:3306/jsp";
+   String url = "jdbc:mysql://125.190.205.205:3306/jsp?useSSL=false";
    String id="root";
    String pw="1234";
    
