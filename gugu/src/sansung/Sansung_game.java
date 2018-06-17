@@ -1,4 +1,4 @@
-package DB_project;
+package sansung;
 
 
 import java.awt.Color;
@@ -14,7 +14,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Arrays;
 import java.util.Random;
-import javax.swing.JFrame;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -50,10 +50,9 @@ public class Sansung_game extends JFrame implements ActionListener, KeyListener,
    private JLabel lblNewLabel;
    private JLabel lblScore;
    private JLabel Label_nickname;
-   private JLabel Label_rank;
    private JLabel lblNick;
    private String NickName;
-   
+
    String url = "jdbc:mysql://125.190.205.205:3306/jsp";
    String id="root";
    String pw="1234";
@@ -167,6 +166,7 @@ public class Sansung_game extends JFrame implements ActionListener, KeyListener,
       lblScore.setForeground(Color.RED);
       lblScore.setFont(new Font("굴림", Font.BOLD, 54));
 
+
       setVisible(true);
 
       // 버튼,리스트,키 이벤트설정및 텍스트필드포커스 설정
@@ -201,9 +201,8 @@ public class Sansung_game extends JFrame implements ActionListener, KeyListener,
                 
             int cnt =0;
               while (rs.next()) {	
-            	  	//기존의 코드에서는 배열에 값을 잘못 넣고 있었습니다.
-            	  //  String[] word = new String[] {aword}; 잘못된 부분
-                 String aword = rs.getString("word");
+            	  	//기존의 DB값 넣기
+            	String aword = rs.getString("word");
                  work[cnt] = aword;
                  System.out.println("단어 : " + aword);
                  cnt++;                 
@@ -267,7 +266,7 @@ public class Sansung_game extends JFrame implements ActionListener, KeyListener,
                         score.setText(scorenum + "점"); // 점수판 점수 변경
                         label[i].setVisible(false);// 단어 화면에서 안보이게
                         textField_1.setText("");// 텍스트 값 없애기
-                        if(scorenum > 200 &&  list.getSelectedIndex() != 4 ){                        	
+                        if(scorenum > 200 &&  list.getSelectedIndex() != 4 ){      // 초기화하고 다음 단계 넘어가기                    	
                         	scorenum = 0;
                         	score.setText(scorenum + "점");
                         	list.setSelectedIndex(list.getSelectedIndex()+1);
@@ -392,22 +391,6 @@ public class Sansung_game extends JFrame implements ActionListener, KeyListener,
              panel_life1.setBackground(Color.BLUE);
              panel_life2.setBackground(Color.BLUE);
              panel_life3.setBackground(Color.BLUE);
-             try {
-				    Class.forName("com.mysql.jdbc.Driver");
-				    conn = DriverManager.getConnection(url, id, pw);
-				    st = conn.createStatement(); 
-			        st = conn.prepareStatement("UPDATE user SET score=? where  iduser=?");
-			          ((PreparedStatement) st).setInt(1, scorenum);
-			          ((PreparedStatement) st).setString(2, NickName);
-			          if (((PreparedStatement) st).executeUpdate() > 0) 
-			          {
-			                System.out.println("정보 업데이트 성공"); // 점수는 중복이여도 괜찮지만 사용자의 아이디는 중복되지않
-			             } else {
-			                System.out.println("정보 업데이트 실패");
-			             }
-	            } catch(Exception e1){
-				      System.out.println(e1.getMessage());
-				 }
              // 게임 결과화면 띄우기            
 
              
