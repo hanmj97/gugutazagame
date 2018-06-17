@@ -1,5 +1,4 @@
-package sansung;
-
+package DB_project;
 
 public class Sansung_main {
 
@@ -17,5 +16,25 @@ public class Sansung_main {
 		Sansung_game game = new Sansung_game(nick);// 닉네임 가지고 게임화면 띄우기 
 		
 	}
-
+	
+	public void showShort(Sansung_nick gui, String nick)
+	{
+		gui.dispose();
+		shortType Type = new shortType(nick);
+	}
+	
+	public void rank(Sansung_nick gui, String nick)
+	{
+		rank rank1 = new rank(nick);
+	}
+	
+	public void Mine_rank(Sansung_nick gui, String nick)
+	{
+		Mine_rank rank2 = new Mine_rank(nick);
+	}
+	
+	public void Mine_game(Sansung_nick gui, String nick)
+	{
+		Mine_game Mine1 = new Mine_game(nick);
+	}
 }
