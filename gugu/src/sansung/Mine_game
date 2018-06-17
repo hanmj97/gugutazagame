@@ -96,13 +96,13 @@ public class Mine_game extends JFrame implements ActionListener, KeyListener, Li
 
       gamestart = new JButton("시작"); // 시작 버튼
       gamestart.setFont(new Font("굴림", Font.BOLD, 23));
-      gamestart.setBounds(489, 626, 105, 38);
+      gamestart.setBounds(497, 627, 105, 38);
       getContentPane().add(gamestart);
       
       
-      gotoMain = new JButton("메인으로.."); // 시작 버튼
+      gotoMain = new JButton("메인으로가기"); // 시작 버튼
       gotoMain.setFont(new Font("굴림", Font.BOLD, 23));
-      gotoMain.setBounds(603, 626, 180, 38);
+      gotoMain.setBounds(697, 627, 205, 38);
       getContentPane().add(gotoMain);
       
 
@@ -200,6 +200,12 @@ public class Mine_game extends JFrame implements ActionListener, KeyListener, Li
    
    @Override
    public void actionPerformed(ActionEvent e) {
+	   
+	   if( e.getSource().equals(gotoMain) ){
+		   System.out.println("adsfasdf");
+		   Mine_nick gui = new Mine_nick();		   
+	   }
+	   
 
       // 게임시작 버튼 이벤트
       if (e.getSource().equals(gamestart)) {
