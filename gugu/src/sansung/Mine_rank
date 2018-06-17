@@ -1,0 +1,147 @@
+package DB_project;
+
+import javax.swing.JFrame;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+
+import com.mysql.jdbc.PreparedStatement;
+
+import java.awt.Font;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JTextArea;
+
+public class Mine_rank extends JFrame {
+   
+   private String[] rank2 = new String[1000];
+   private String[] score2 = new String[1000];
+   public Mine_rank(String nick) {
+      String url="jdbc:mysql://125.190.205.205/?useSSL=false";
+       String id="root";
+       String pw="1234";
+       Connection conn = null;
+       Statement st = null;
+       ResultSet rs = null;
+          
+      getContentPane().setLayout(null);
+      setSize(820, 653);
+      
+      JLabel label2 = new JLabel("자원캐기 게임점수 랭킹");
+      label2.setFont(new Font("굴림", Font.BOLD, 26));
+      label2.setBounds(124, 30, 543, 55);
+      getContentPane().add(label2);
+      label2.setHorizontalAlignment(SwingConstants.CENTER);
+      
+      JLabel lblNewLabel_0 = new JLabel("");
+      lblNewLabel_0.setBounds(75, 145, 639, 31);
+      getContentPane().add(lblNewLabel_0);
+      
+      JLabel lblNewLabel_1 = new JLabel("");
+      lblNewLabel_1.setBounds(75, 186, 639, 34);
+      getContentPane().add(lblNewLabel_1);
+      
+      JLabel lblNewLabel_2 = new JLabel("");
+      lblNewLabel_2.setBounds(75, 230, 639, 33);
+      getContentPane().add(lblNewLabel_2);
+      
+      JLabel lblNewLabel_3 = new JLabel("");
+      lblNewLabel_3.setBounds(75, 273, 639, 33);
+      getContentPane().add(lblNewLabel_3);
+      
+      JLabel lblNewLabel_4 = new JLabel("");
+      lblNewLabel_4.setBounds(75, 316, 639, 33);
+      getContentPane().add(lblNewLabel_4);
+      
+      JLabel lblNewLabel_5 = new JLabel("");
+      lblNewLabel_5.setBounds(75, 359, 639, 34);
+      getContentPane().add(lblNewLabel_5);
+      
+      JLabel lblNewLabel_6 = new JLabel("");
+      lblNewLabel_6.setBounds(75, 403, 639, 34);
+      getContentPane().add(lblNewLabel_6);
+      
+      JLabel lblNewLabel_7 = new JLabel("");
+      lblNewLabel_7.setBounds(75, 447, 639, 33);
+      getContentPane().add(lblNewLabel_7);
+      
+      JLabel lblNewLabel_8 = new JLabel("");
+      lblNewLabel_8.setBounds(75, 490, 639, 31);
+      getContentPane().add(lblNewLabel_8);
+      
+      JLabel lblNewLabel_9 = new JLabel("");
+      lblNewLabel_9.setBounds(75, 533, 639, 31);
+      getContentPane().add(lblNewLabel_9);
+      
+      try {
+            Class.forName("com.mysql.jdbc.Driver");
+            
+            conn = DriverManager.getConnection(url, id, pw);
+            
+          st = conn.createStatement(); 
+          rs = st.executeQuery("select user as 'user', score from jsp.alter_user2 order by score DESC");  //최대 10명의 점수 큰순서대로 정렬후 랭킹 표출
+          
+          int cnt = 0;
+          while (rs.next()) {
+             String aword = rs.getString("user");
+             System.out.println("사용자 : " + aword);
+             rank2[cnt] = aword;
+             String ascore =  rs.getString("score");
+             System.out.println("점수 : " + ascore); 
+             score2[cnt] = ascore;
+             if(cnt == 0)
+             {
+                lblNewLabel_0.setText("플레이어 : " + aword +" 점수 : " + ascore);
+             }
+             if(cnt == 1)
+             {
+                lblNewLabel_1.setText("플레이어 : " + aword +" 점수 : " + ascore);
+             }
+             if(cnt == 2)
+             {
+                lblNewLabel_2.setText("플레이어 : " + aword +" 점수 : " + ascore);
+             }
+             if(cnt == 3)
+             {
+                lblNewLabel_3.setText("플레이어 : " + aword +" 점수 : " + ascore);
+             }
+             if(cnt == 4)
+             {
+                lblNewLabel_4.setText("플레이어 : " + aword +" 점수 : " + ascore);
+             }
+             if(cnt == 5)
+             {
+                lblNewLabel_5.setText("플레이어 : " + aword +" 점수 : " + ascore);
+             }
+             if(cnt == 6)
+             {
+                lblNewLabel_6.setText("플레이어 : " + aword +" 점수 : " + ascore);
+             }
+             if(cnt == 7)
+             {
+                lblNewLabel_7.setText("플레이어 : " + aword +" 점수 : " + ascore);
+             }
+             if(cnt == 8)
+             {
+                lblNewLabel_8.setText("플레이어 : " + aword +" 점수 : " + ascore);
+             }
+             if(cnt == 9)
+             {
+                lblNewLabel_9.setText("플레이어 : " + aword +" 점수 : " + ascore);
+             }
+             cnt++;                           
+             }
+         }
+         catch(Exception e1)
+         {
+            System.out.println(e1.getMessage());
+         }
+      setVisible(true);
+   }
+}
