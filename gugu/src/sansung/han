@@ -1,0 +1,143 @@
+package hangeul;
+import javax.swing.*;
+import javax.swing.event.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+//import java.awt.EventQueue;
+
+public class han extends JFrame implements ActionListener,KeyListener{
+	private JTextField textf;
+	
+	public String Nick;
+	private Main main;
+	private Sansung_game game;
+	
+	
+	public han() {
+		
+		main = new Main();
+		
+		//super("구 구 한 글 타 자 연 습");
+		setSize(1280,720);
+		getContentPane().setLayout(null);
+		
+		JLabel Name = new JLabel("        구 구 한 글 타 자 연 습");
+		Name.setFont(new Font("굴림", Font.BOLD, 35));
+		Name.setBounds(320, 50, 640, 50);
+		getContentPane().add(Name);
+		
+		ImageIcon con1 = new ImageIcon("Character/너부리.png");
+		ImageIcon con2 = new ImageIcon("Character/보노보노.png");
+		ImageIcon con3 = new ImageIcon("Character/포로리.jpg");
+		
+		JLabel pl1 = new JLabel(con1);
+		pl1.setBounds(320, 167, 160, 240);
+		getContentPane().add(pl1);
+		
+		JLabel pl2 = new JLabel(con2);
+		pl2.setBounds(555, 167, 160, 240);
+		getContentPane().add(pl2);
+		
+		JLabel pl3 = new JLabel(con3);
+		pl3.setBounds(800, 167, 160, 240);
+		getContentPane().add(pl3);
+		
+		JButton OKBT = new JButton("O K");
+		OKBT.addActionListener(this); 
+		OKBT.setBounds(543, 600, 187, 42);
+		getContentPane().add(OKBT);
+		
+		textf = new JTextField();		//닉네임 입력 창
+		//textf.addActionListener(this); 
+		textf.setBounds(543, 525, 187, 42);
+		getContentPane().add(textf);
+		textf.setColumns(20);
+		
+		JLabel NickName = new JLabel("Nick name");
+		NickName.setBounds(543, 500, 187, 15);
+		getContentPane().add(NickName);
+		
+		JRadioButton CB1 = new JRadioButton("너부리");
+		CB1.setBounds(336, 427, 121, 23);
+		getContentPane().add(CB1);
+		
+		JRadioButton CB2 = new JRadioButton("보노보노");
+		CB2.setBounds(555, 427, 121, 23);
+		getContentPane().add(CB2);
+		
+		JRadioButton CB3 = new JRadioButton("포로리");
+		CB3.setBounds(800, 427, 121, 23);
+		getContentPane().add(CB3);
+		
+		ButtonGroup BG = new ButtonGroup();
+		BG.add(CB1);
+		BG.add(CB2);
+		BG.add(CB3);
+		
+		textf.addKeyListener(this);
+		
+		
+		
+		setVisible(true);
+	}
+	
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		if (e.getKeyCode() == KeyEvent.VK_ENTER){ // 텍스트 이력창에 값이 있다면 닉네임 변수에 저장 후 게임화면 띄우기 
+			
+			if(!textf.getText().equals("")){
+				
+				Nick = textf.getText().toString();
+				System.out.println("nick - keyPressed : "+Nick);
+				this.dispose();
+				main.menu( Nick);
+				
+			}
+			else {
+				
+			}
+		}
+	
+	}
+	@Override
+	public void keyReleased(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void keyTyped(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		 // TODO Auto-generated method stub
+		Nick = textf.getText().toString();  // 저장된 닉넴 값 들어감.
+		System.out.println("nick - actionPerformed : "+Nick);
+		JButton b = (JButton)e.getSource();
+		if(b.getText().equals("산성비 게임")){			
+			// 텍스트 이력창에 값이 있다면 닉네임 변수에 저장 후 게임화면 띄우기 
+			
+			this.dispose();
+			main.showGameView(Nick); // 이 닉네임이 메인게임의 닉넴에 출력됨
+			//main.menu(Nick);
+			setVisible(false);
+		}
+		else {                             
+			// 텍스트 입력창에 값이 없다면 라벨텍스트 변경 
+		}
+	}
+	
+}
